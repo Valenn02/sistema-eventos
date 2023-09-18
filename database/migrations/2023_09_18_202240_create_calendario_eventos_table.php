@@ -9,11 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up():void
     {
         Schema::create('calendario_eventos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('evento_id');
+            $table->date('fecha');
+            $table->time('hora');
             $table->timestamps();
+
+            $table->foreign('evento_id')
+                ->references('id')
+                ->on('eventos')
+                ->onDelete('cascade');
         });
     }
 
